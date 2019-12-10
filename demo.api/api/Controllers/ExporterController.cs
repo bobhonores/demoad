@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace demo.api.Controllers
 {
-    [Route("api/distributors")]
+    [Route("api/exports")]
     [ApiController]
-    public class DistributorController : ControllerBase
+    public class ExporterController : ControllerBase
     {
-        [Authorize(Roles = "DistributeLeads")]
+        [Authorize(Roles = "ExportLeads")]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "Distribute" };
+            return new string[] { "Export" };
         }
     }
 }

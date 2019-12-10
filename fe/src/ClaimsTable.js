@@ -23,6 +23,19 @@ export default class ClaimsTable extends Component {
         this.isAuthenticated = this.isAuthenticated.bind(this);
     }
 
+    componentDidMount() {
+        axios.get('https://localhost:5001/api/distributors')
+            .then(res => {
+                const distributions = res.data;
+                this.setState({distributions});
+            });
+
+            axios.get('https://localhost:5001/api/exports')
+            .then(res => {
+                const exports = res.data;
+                this.setState({exports});
+            });
+    }
 
     componentWillMount() {
         this.isAuthenticated();
@@ -43,16 +56,24 @@ export default class ClaimsTable extends Component {
         });
     }
 
-    renderButton() {
-        if (this.state.roles.indexOf("DistributeLeads") > -1) {
-            axios.get('https://localhost:5001/api/distributor')
-                .then(res => console.log(res.data));
-            return (<button>Distribute</button>);
+    distribute() {
+        alert("Distributed");
+    }
+    
+    export() {
+        alert("Exported");
+    }
+
+
+    renderDistributionButton(){
+        if (this.state.roles.indexOf("DistributeLeads") > -1 && this.state.distributions) {
+            return (this.state.distributions.map((distribution, index) => <div key={index} className="btn btn-primary" onClick={this.distribute}>{distribution}</div>));
         }
-        if (this.state.roles.indexOf("ExportLeads") > -1) {
-            axios.get('https://localhost:5001/api/distributor')
-                .then(res => console.log(res));
-            return (<button>Export</button>);
+    }
+
+    renderExportButton() {
+        if (this.state.roles.indexOf("ExportLeads") > -1 && this.state.exports) {
+            return (this.state.exports.map((item, index) => <div key={index} className="btn btn-info" onClick={this.export}>{item}</div>));
         }
     }
 
@@ -98,7 +119,12 @@ export default class ClaimsTable extends Component {
                     </tbody>
                 </Table>
                 <div>
-                    {this.renderButton()}
+                    <div>
+                        {this.renderDistributionButton()}
+                    </div>
+                    <div>
+                        {this.renderExportButton()}
+                    </div>
                 </div>
             </div>
         )
