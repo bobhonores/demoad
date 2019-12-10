@@ -1,7 +1,4 @@
-import {
-    authContext,
-    endpoint
-} from './adalConfig';
+import { authContext, endpoint } from './adalConfig';
 import decode from 'jwt-decode';
 
 export default class AADService {

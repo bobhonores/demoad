@@ -7,23 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace demo.api.Controllers
 {
-    [Authorize]
-    [Route("api/values")]
+    [Route("api/distributor")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class DistributorController : ControllerBase
     {
-        // GET api/values
+        [Authorize(Roles = "DistributeLeads")]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
+            return new string[] { "distribute1", "distribute2" };
         }
 
         // POST api/values

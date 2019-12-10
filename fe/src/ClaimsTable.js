@@ -1,11 +1,8 @@
 //  /src/ClaimsTable.js
-import React, {
-    Component
-} from 'react';
-import {
-    Table
-} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Table } from 'react-bootstrap';
 import AADService from './AADService';
+import axios from 'axios';
 
 export default class ClaimsTable extends Component {
 
@@ -48,9 +45,13 @@ export default class ClaimsTable extends Component {
 
     renderButton() {
         if (this.state.roles.indexOf("DistributeLeads") > -1) {
+            axios.get('https://localhost:5001/api/distributor')
+                .then(res => console.log(res.data));
             return (<button>Distribute</button>);
         }
         if (this.state.roles.indexOf("ExportLeads") > -1) {
+            axios.get('https://localhost:5001/api/distributor')
+                .then(res => console.log(res));
             return (<button>Export</button>);
         }
     }
